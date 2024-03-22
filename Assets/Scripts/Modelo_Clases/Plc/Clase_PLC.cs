@@ -53,7 +53,7 @@ public class Clase_PLC
         this.My_plc.Open();
         if (this.My_plc.IsConnected)
         {
-            Debug.Log("conectado con exito!!");
+            //Debug.Log("conectado con exito!!");
            
         }
     }
@@ -87,7 +87,7 @@ public class Clase_PLC
 
         double num_pasos = num_items*1.0 / READ_LIMIT;
         num_pasos = Math.Ceiling(num_pasos);
-        Debug.Log("Haremos pasos: " + num_pasos);
+        //Debug.Log("Haremos pasos: " + num_pasos);
 
         StartConnection();
 
@@ -102,11 +102,11 @@ public class Clase_PLC
             List<DataItem> elementosDelPaso = dataitems.GetRange(indiceInicio, indiceFinal - indiceInicio);
 
             // Imprimir los elementos del paso actual
-            Debug.Log($"Paso {i + 1}: desde " + indiceInicio + " hasta " + indiceFinal);
+            //Debug.Log($"Paso {i + 1}: desde " + indiceInicio + " hasta " + indiceFinal);
             // read the list of variables
             My_plc.ReadMultipleVars(elementosDelPaso);
 
-            Debug.Log("");
+            //Debug.Log("");
         }
         // close the connection
         EndConnection();

@@ -28,8 +28,17 @@ public class ObjetoLectura : MonoBehaviour
         if (read_auto)
         {
             escena.PedirVariable(nombreVariable);
-            texto.text = escena.LeerVariable(nombreVariable).ToString();
+            string valor = escena.LeerVariable(nombreVariable).ToString();
+            //Debug.Log("hemos leido: " + valor + " en: " + nombreVariable);
+            texto.text = this.GenerarCadena(valor);
         }
 
+    }
+
+    protected virtual string GenerarCadena(string entrada)
+    {
+        string salida = entrada;
+
+        return salida;
     }
 }

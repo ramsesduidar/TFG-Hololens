@@ -12,7 +12,8 @@ public class ObjetoEscrituraBoolean : ObjetoEscritura
     public override void EscribirValor()
     {
         this.getEscena().EscribirVariable(this.nombreVariable, valor.ToString());
-        Debug.Log("Escribo: " + valor);
+        this.getEscena().EscribirVariable(this.nombreVariable, (!valor).ToString());
+        Debug.Log("Escribo: " + valor + " en la variable: " + nombreVariable);
         if (conmutar) valor = !valor;
     }
 }

@@ -128,7 +128,7 @@ public class Clase_PLC
         item.Value = Conversor.ToS7Type(valor, item.VarType);
 
         StartConnection();
-
+        Debug.Log("Voy a escribir " +  valor);
         this.My_plc.Write(item);
  
         // close the connection

@@ -58,8 +58,6 @@ public class Escena_PLC : MonoBehaviour
                     });
                 }
             }
-
-            Debug.Log("el json: "+PLC_DTO.ToJson(this.My_Plc));
             
         }
 
@@ -87,7 +85,7 @@ public class Escena_PLC : MonoBehaviour
 
     public void LeerVariables()
     {
-        if(this.My_Plc != null)
+        if (this.My_Plc != null)
             this.My_Plc.LeerVariables();
     }
 

@@ -13,6 +13,8 @@ namespace QRTracking
     {
         public GameObject qrCodePrefab;
 
+        public GameObject flechasPrefab;
+
         private SortedDictionary<System.Guid, GameObject> qrCodesObjectsList;
         private Queue<ActionData> pendingActions = new Queue<ActionData>();
         private bool clearExisting = false;
@@ -124,7 +126,12 @@ namespace QRTracking
                         qrCodeObject.GetComponent<QRCode>().qrCode = action.qrCode;
                         qrCodesObjectsList.Add(action.qrCode.Id, qrCodeObject);
 
-                        if(this.current_canvas != null) this.current_canvas.SetActive(false);
+                        Debug.Log("Crear objeto con " + qrCodeObject.transform.position + qrCodeObject.transform.rotation);
+
+                        GameObject flechas = Instantiate(flechasPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                        flechas.GetComponent<UpdatePosicion>().relativo = qrCodeObject;
+
+                        if (this.current_canvas != null) this.current_canvas.SetActive(false);
                         if (this.current_qr != null) this.current_qr.SetActive(false);
 
                         this.current_canvas = this.canvaseshash[action.qrCode.Data];
@@ -132,6 +139,7 @@ namespace QRTracking
 
                         current_canvas.SetActive(true);
                         current_qr.SetActive(true);
+
                     }
                     else if (action.type == ActionData.Type.Updated)
                     {
@@ -141,6 +149,11 @@ namespace QRTracking
                             qrCodeObject.GetComponent<SpatialGraphNodeTracker>().Id = action.qrCode.SpatialGraphNodeId;
                             qrCodeObject.GetComponent<QRCode>().qrCode = action.qrCode;
                             qrCodesObjectsList.Add(action.qrCode.Id, qrCodeObject);
+
+                            Debug.Log("Crear objeto con " + qrCodeObject.transform.position + qrCodeObject.transform.rotation);
+
+                            GameObject flechas = Instantiate(flechasPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                            flechas.GetComponent<UpdatePosicion>().relativo = qrCodeObject;
                         }
 
                         // si cambiamos de qr

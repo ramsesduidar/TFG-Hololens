@@ -21224,7 +21224,7 @@ MonoBehaviour:
   escenas:
   - {fileID: 1349476356}
   - {fileID: 734019180}
-  QRCodesVisualizer: {fileID: 135735052}
+  LectorObjetos: {fileID: 135735052}
 --- !u!4 &1639790481
 Transform:
   m_ObjectHideFlags: 0

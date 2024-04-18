@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Microsoft.MixedReality.OpenXR;
 
 namespace QRTracking
 {
@@ -182,6 +183,7 @@ namespace QRTracking
         {
             HandleEvents();
         }
+
     }
 
 }

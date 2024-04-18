@@ -1,3 +1,4 @@
+using Hologramas;
 using QRTracking;
 using S7.Net;
 using System;
@@ -118,17 +119,17 @@ public class Escena_PLC : MonoBehaviour
     }
 
 
-    public void Activar(string codigo, Guid tracker)
+    public void Activar(HoloEventArgs evento)
     {
         
-        if(codigo == this.qrcode_name)
+        if(evento.ValorQR == this.qrcode_name)
         {
             gameObject.SetActive(true);
 
             if (instanciaHolograma == null && hologramaPrefab != null)
             {
                 instanciaHolograma = Instantiate(hologramaPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                instanciaHolograma.GetComponent<SpatialGraphNodeTracker>().Id = tracker;
+                instanciaHolograma.GetComponent<SpatialGraphNodeTracker>().Id = evento.Tracker;
 
             }
 

@@ -1,4 +1,5 @@
 using Hologramas;
+using MixedReality.Toolkit.SpatialManipulation;
 using QRTracking;
 using S7.Net;
 using System;
@@ -119,7 +120,7 @@ public class Escena_PLC : MonoBehaviour
     }
 
 
-    public void Activar(HoloEventArgs evento)
+    public bool Activar(HoloEventArgs evento)
     {
         
         if(evento.ValorQR == this.qrcode_name)
@@ -135,11 +136,19 @@ public class Escena_PLC : MonoBehaviour
 
             if (instanciaHolograma != null)
                 instanciaHolograma.SetActive(true);
+
+            return true;
         } else
         {
+            if (TryGetComponent<ObjectManipulator>(out var obj))
+            {
+                obj.enabled = false;
+            }
             gameObject.SetActive(false);
 
             if (instanciaHolograma != null) instanciaHolograma.SetActive(false);
+
+            return false;
         }
 
     }

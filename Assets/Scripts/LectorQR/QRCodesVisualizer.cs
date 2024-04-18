@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,21 +8,30 @@ namespace QRTracking
      * QRCodesVisualizer.cs - Handles all QR code visualizing in the scene 
      * and instantiates all QR codes in the local list kept in QRCodesManager.
     */
+
+    public class HoloEventArgs : EventArgs
+    {
+        public string ValorQR { get; }
+        public Guid Tracker { get; }
+
+        public HoloEventArgs(string valorQR, Guid tracker)
+        {
+            this.ValorQR = valorQR;
+            this.Tracker = tracker;
+        }
+    }
+
     public class QRCodesVisualizer : MonoBehaviour
     {
         public GameObject qrCodePrefab;
-
-        public GameObject flechasPrefab;
 
         private SortedDictionary<System.Guid, GameObject> qrCodesObjectsList;
         private Queue<ActionData> pendingActions = new Queue<ActionData>();
         private bool clearExisting = false;
 
-        public List<GameObject> canvases;
-
-        private Dictionary<string, GameObject> canvaseshash;
-        private GameObject current_canvas;
         private GameObject current_qr;
+
+        public event EventHandler<HoloEventArgs> eventoHolo;
 
         struct ActionData
         {
@@ -57,13 +65,6 @@ namespace QRTracking
             {
                 throw new System.Exception("Prefab not assigned");
             }
-
-            this.canvaseshash = new Dictionary<string, GameObject>();
-            this.canvases.ForEach(canvas =>
-            {
-                this.canvaseshash.Add(canvas.name, canvas);
-                Debug.Log("QRCodesVisualizer ADD: " + canvas.name);
-            });
         }
         private void Instance_QRCodesTrackingStateChanged(object sender, bool status)
         {
@@ -126,18 +127,12 @@ namespace QRTracking
                         qrCodeObject.GetComponent<QRCode>().qrCode = action.qrCode;
                         qrCodesObjectsList.Add(action.qrCode.Id, qrCodeObject);
 
-                        Debug.Log("Crear objeto con " + qrCodeObject.transform.position + qrCodeObject.transform.rotation);
-
-                        GameObject flechas = Instantiate(flechasPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                        flechas.GetComponent<UpdatePosicion>().relativo = qrCodeObject;
-
-                        if (this.current_canvas != null) this.current_canvas.SetActive(false);
                         if (this.current_qr != null) this.current_qr.SetActive(false);
 
-                        this.current_canvas = this.canvaseshash[action.qrCode.Data];
                         this.current_qr = this.qrCodesObjectsList[action.qrCode.Id];
 
-                        current_canvas.SetActive(true);
+                        this.eventoHolo?.Invoke(this, new HoloEventArgs(action.qrCode.Data, action.qrCode.SpatialGraphNodeId));
+                        
                         current_qr.SetActive(true);
 
                     }
@@ -149,26 +144,14 @@ namespace QRTracking
                             qrCodeObject.GetComponent<SpatialGraphNodeTracker>().Id = action.qrCode.SpatialGraphNodeId;
                             qrCodeObject.GetComponent<QRCode>().qrCode = action.qrCode;
                             qrCodesObjectsList.Add(action.qrCode.Id, qrCodeObject);
-
-                            Debug.Log("Crear objeto con " + qrCodeObject.transform.position + qrCodeObject.transform.rotation);
-
-                            GameObject flechas = Instantiate(flechasPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                            flechas.GetComponent<UpdatePosicion>().relativo = qrCodeObject;
                         }
 
-                        // si cambiamos de qr
-                        if (this.current_canvas != null 
-                            && this.current_canvas.name != action.qrCode.Data) 
-                        {
-                            this.current_canvas.SetActive(false);
-                            this.current_qr.SetActive(false);
-                        }
+                        if (this.current_qr != null) current_qr.SetActive(false);
 
-                        this.current_canvas = this.canvaseshash[action.qrCode.Data];
                         this.current_qr = this.qrCodesObjectsList[action.qrCode.Id];
 
-                        current_canvas.SetActive(true);
                         current_qr.SetActive(true);
+                        this.eventoHolo?.Invoke(this, new HoloEventArgs(action.qrCode.Data, action.qrCode.SpatialGraphNodeId));
 
                         Debug.Log("Qr actualizado: " + action.qrCode.Data);
                     }

@@ -1,3 +1,4 @@
+using QRTracking;
 using S7.Net;
 using System;
 using System.Collections;
@@ -6,10 +7,13 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class Escena_PLC : MonoBehaviour
 {
 
     public Clase_PLC My_Plc;
+
+    public bool leer_auto = true;
 
     public string DireccionIP;
     public CpuType Modelo = CpuType.S71200;
@@ -19,6 +23,9 @@ public class Escena_PLC : MonoBehaviour
     public string atributos_file;
 
     public string qrcode_name;
+    public GameObject hologramaPrefab;
+
+    private GameObject instanciaHolograma;
 
     //public List<AtributoDTO> atributos;
     public List<DataBlock> bloquesDatos;
@@ -80,7 +87,8 @@ public class Escena_PLC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LeerVariables();
+        if(leer_auto)
+            LeerVariables();
     }
 
     public void LeerVariables()
@@ -107,5 +115,31 @@ public class Escena_PLC : MonoBehaviour
     {
         if(this.My_Plc != null)
             this.My_Plc.EscribirVariable(nombre, valor);
+    }
+
+
+    public void Activar(string codigo, Guid tracker)
+    {
+        
+        if(codigo == this.qrcode_name)
+        {
+            gameObject.SetActive(true);
+
+            if (instanciaHolograma == null && hologramaPrefab != null)
+            {
+                instanciaHolograma = Instantiate(hologramaPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                instanciaHolograma.GetComponent<SpatialGraphNodeTracker>().Id = tracker;
+
+            }
+
+            if (instanciaHolograma != null)
+                instanciaHolograma.SetActive(true);
+        } else
+        {
+            gameObject.SetActive(false);
+
+            if (instanciaHolograma != null) instanciaHolograma.SetActive(false);
+        }
+
     }
 }

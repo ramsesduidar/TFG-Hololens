@@ -1,3 +1,4 @@
+using Microsoft.MixedReality;
 using MixedReality.Toolkit.UX;
 using System;
 using System.Collections;

@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using S7.Net.Types;
 using Unity.Collections.LowLevel.Unsafe;
+using System.Threading.Tasks;
 
 
 public class Clase_PLC
@@ -51,9 +52,9 @@ public class Clase_PLC
         }
 
         this.My_plc.Open();
-        if (this.My_plc.IsConnected)
+        if (!this.My_plc.IsConnected)
         {
-            //Debug.Log("conectado con exito!!");
+            throw new System.Exception("conectado con exito!!");
            
         }
     }
@@ -157,4 +158,5 @@ public class Clase_PLC
 
         return plc;
     }
+
 }

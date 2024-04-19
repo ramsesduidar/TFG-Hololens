@@ -5,7 +5,9 @@ using S7.Net;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -31,6 +33,8 @@ public class Escena_PLC : MonoBehaviour
 
     //public List<AtributoDTO> atributos;
     public List<DataBlock> bloquesDatos;
+
+    private bool leyendo;
 
     [Serializable]
     public class DataBlock
@@ -75,22 +79,32 @@ public class Escena_PLC : MonoBehaviour
         //InvokeRepeating("LeerVariables", 0.1f, 1.0f);
     }
 
-    private void Init(string direccionIP, CpuType modelo, short rackCPU, short slotCPU)
-    {
-        this.DireccionIP = direccionIP;
-        this.Modelo = modelo;
-        this.RackCPU = rackCPU;
-        this.SlotCPU = slotCPU;
-
-        this.Start();
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if(leer_auto)
-            LeerVariables();
+        // Comprobar si ya hay una operación de escritura en curso
+        if (!leyendo)
+        {
+            // Iniciar una tarea asíncrona para escribir la variable en el PLC
+            Task.Run( () =>
+            {
+                // Marcar que se está realizando una operación de lectura para evitar iniciar otra
+                leyendo = true;
+
+                // Llamar a la función de lectura en el PLC
+                try
+                {
+                    this.LeerVariables();
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log("Lectura task run realizada con errores: " + ex.Message);
+                }
+
+                // Marcar que la operación de lectura ha finalizado
+                leyendo = false;
+            });
+        }
     }
 
     public void LeerVariables()
@@ -140,6 +154,7 @@ public class Escena_PLC : MonoBehaviour
             return true;
         } else
         {
+            // si se desactiva el objeto con esto activo luegolos botones no funcionan
             if (TryGetComponent<ObjectManipulator>(out var obj))
             {
                 obj.enabled = false;

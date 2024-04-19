@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: PLC-Hololens
+  productName: PLC-Hololens-v2
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -139,12 +139,8 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.1
-  preloadedAssets:
-  - {fileID: 11400000, guid: c677e5c4eb85b7849a8da406775c299d, type: 2}
-  - {fileID: -795590632874594231, guid: 66659ef398b52e44dbf7c10bca559927, type: 2}
-  - {fileID: 11400000, guid: 202ba81cded86d0408685b27d1d6aeb5, type: 2}
-  - {fileID: 5451603852395496888, guid: 2ba6127a16ef71f43bb02586bcfeabe1, type: 2}
+  bundleVersion: 0.2
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -684,14 +680,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: PLC-Hololens-v1
+  metroPackageName: PLC-Hololens-v2
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany
   metroCertificateNotAfter: 00be33984f85db01
-  metroApplicationDescription: PLC-Hololens
+  metroApplicationDescription: PLC-Hololens-v2
   wsaImages: {}
   metroTileShortName: PLC-Hololens
   metroTileShowName: 0

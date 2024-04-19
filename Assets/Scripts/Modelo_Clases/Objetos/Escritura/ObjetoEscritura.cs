@@ -3,6 +3,7 @@ using MixedReality.Toolkit.UX;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -32,4 +33,5 @@ public abstract class ObjetoEscritura : MonoBehaviour
     }
 
     public abstract void EscribirValor();
+
 }

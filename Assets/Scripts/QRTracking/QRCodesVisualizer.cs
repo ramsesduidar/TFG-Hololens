@@ -80,7 +80,7 @@ namespace QRTracking
             if (QRCodesManager.Instance.fechaInicio > e.Data.LastDetectedTime)
                 return;
 
-            Debug.Log("QRCodesVisualizer Instance_QRCodeAdded");
+            //Debug.Log("QRCodesVisualizer Instance_QRCodeAdded");
 
             lock (pendingActions)
             {
@@ -93,7 +93,7 @@ namespace QRTracking
             if (QRCodesManager.Instance.fechaInicio > e.Data.LastDetectedTime)
                 return;
 
-            Debug.Log("QRCodesVisualizer Instance_QRCodeUpdated");
+            //Debug.Log("QRCodesVisualizer Instance_QRCodeUpdated");
 
             lock (pendingActions)
             {
@@ -103,7 +103,7 @@ namespace QRTracking
 
         private void Instance_QRCodeRemoved(object sender, QRCodeEventArgs<Microsoft.MixedReality.QR.QRCode> e)
         {
-            Debug.Log("QRCodesVisualizer Instance_QRCodeRemoved");
+            //Debug.Log("QRCodesVisualizer Instance_QRCodeRemoved");
 
             lock (pendingActions)
             {
@@ -118,8 +118,8 @@ namespace QRTracking
                 while (pendingActions.Count > 0)
                 {
                     var action = pendingActions.Dequeue();
-                    Debug.Log($"QRCodesVisualizer HandleEvents: {action.type}");
-                    Debug.Log($"QRCodeDATA: {action.qrCode.Data}");
+                    //Debug.Log($"QRCodesVisualizer HandleEvents: {action.type}");
+                    //Debug.Log($"QRCodeDATA: {action.qrCode.Data}");
 
                     if (action.type == ActionData.Type.Added)
                     {
@@ -154,7 +154,7 @@ namespace QRTracking
                         current_qr.SetActive(true);
                         this.eventoHolo?.Invoke(this, new HoloEventArgs(action.qrCode.Data, action.qrCode.SpatialGraphNodeId));
 
-                        Debug.Log("Qr actualizado: " + action.qrCode.Data);
+                        //Debug.Log("Qr actualizado: " + action.qrCode.Data);
                     }
                     else if (action.type == ActionData.Type.Removed)
                     {

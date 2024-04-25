@@ -25,6 +25,7 @@ namespace QRTracking
     public class QRCodesVisualizer : MonoBehaviour
     {
         public GameObject qrCodePrefab;
+        public GameObject objeto;
 
         private SortedDictionary<System.Guid, GameObject> qrCodesObjectsList;
         private Queue<ActionData> pendingActions = new Queue<ActionData>();

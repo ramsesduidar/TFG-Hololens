@@ -10,7 +10,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using System.Threading.Tasks;
 
 
-public class Clase_PLC
+public class Clase_PLC : ILectorPLC
 {
 
     public string DireccionIP;

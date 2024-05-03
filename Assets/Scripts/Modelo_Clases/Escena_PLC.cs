@@ -12,13 +12,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class Escena_PLC : MonoBehaviour
+public class Escena_PLC : Escena
 {
-
-    public Clase_PLC My_Plc;
-
-    public bool leer_auto = true;
-
     public string DireccionIP;
     public CpuType Modelo = CpuType.S71200;
     public short RackCPU = 0;
@@ -26,26 +21,14 @@ public class Escena_PLC : MonoBehaviour
 
     public string atributos_file;
 
-    public string qrcode_name;
-    public GameObject hologramaPrefab;
-
-    private GameObject instanciaHolograma;
-
     //public List<AtributoDTO> atributos;
     public List<DataBlock> bloquesDatos;
-
-    private bool leyendo;
 
     [Serializable]
     public class DataBlock
     {
         public string name;
         public List<AtributoDTO> atributos;
-
-        public void addAtributo()
-        {
-
-        }
     }
 
     // Start is called before the first frame update
@@ -63,7 +46,7 @@ public class Escena_PLC : MonoBehaviour
                     {
                         try
                         {
-                            this.My_Plc.AgregarAtributo(a.Nombre, a.Tipo_Dato, a.Tipo_Variable, a.Direccion_Tipo_Dato, a.StartByteAdr, a.BitAdr, a.Cantidad);
+                            ((Clase_PLC) this.My_Plc).AgregarAtributo(a.Nombre, a.Tipo_Dato, a.Tipo_Variable, a.Direccion_Tipo_Dato, a.StartByteAdr, a.BitAdr, a.Cantidad);
                         } catch (Exception e) { 
                             throw new Exception(e.Message + " en el bloque de datos " + bloque.name);
 
@@ -74,13 +57,10 @@ public class Escena_PLC : MonoBehaviour
             
         }
 
-        // Llama al método 'MiMetodo' después de un retraso inicial de 2 segundos,
-        // y luego lo repite cada 0.5 segundos.
-        //InvokeRepeating("LeerVariables", 0.1f, 1.0f);
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         // Comprobar si ya hay una operación de escritura en curso
         if (!leyendo)
@@ -166,5 +146,5 @@ public class Escena_PLC : MonoBehaviour
             return false;
         }
 
-    }
+    }*/
 }

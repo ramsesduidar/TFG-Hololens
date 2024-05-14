@@ -23,10 +23,10 @@ namespace Hologramas
     public class HologramasManager : MonoBehaviour
     {
 
-        public List<Escena_PLC> escenas = new List<Escena_PLC>();
+        public List<Escena> escenas = new List<Escena>();
         public QRCodesVisualizer LectorObjetos;
 
-        private List<Escena_PLC> actuales = new List<Escena_PLC>();
+        private List<Escena> actuales = new List<Escena>();
 
         private string currentQR;
         public event EventHandler<ChangeQREventArgs> cambioQR;
@@ -43,7 +43,7 @@ namespace Hologramas
 
         }
 
-        public List<Escena_PLC> GetEscenasActuales()
+        public List<Escena> GetEscenasActuales()
         {
             return escenas.FindAll( escena =>
             {

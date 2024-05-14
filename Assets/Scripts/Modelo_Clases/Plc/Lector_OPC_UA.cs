@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Opc.UaFx.Client;
@@ -137,3 +137,4 @@ public class Lector_OPC_UA : ILectorPLC
         direcciones.Add(atr.Direccion, atr);
     }
 }
+*/

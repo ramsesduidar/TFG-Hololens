@@ -1,4 +1,4 @@
-using S7.Net;
+/*using S7.Net;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,4 +53,4 @@ public class Escena_OPC_UA : Escena
 
 
     }
-}
+}*/

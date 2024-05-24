@@ -1,4 +1,4 @@
-#**HoloScada: Realidad aumentada en la Industria 4.0**
+# **HoloScada: Realidad aumentada en la Industria 4.0**
 
 Este repositorio contiene el código fuente del proyecto de realidad aumentada desarrollado como parte de mi Trabajo Final de Grado.
 El objetivo principal del proyecto es crear una aplicación en realidad aumentada que permita interactuar con distintos procesos industriales, 

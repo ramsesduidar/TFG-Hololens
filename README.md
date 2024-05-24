@@ -18,7 +18,7 @@ Para ver el código fuente, dirigirse a la carpeta Assets/Scripts.
 
 1. **Clonar el repositorio**:
    ```sh
-   - git clone https://github.com/tu-usuario/tu-repositorio.git
+   - git clone https://github.com/ramsesduidar/TFG-Hololens.git
 
 2. **Abrir el proyecto en Unity**:
 
